@@ -1,0 +1,6 @@
+target/
+
+# Intellij
+*.iml
+.idea
+.DS_Store

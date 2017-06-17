@@ -1,6 +1,7 @@
 # Spartan
 
 [![Build Status](https://www.travis-ci.org/vptheron/spartan.svg?branch=master)](https://www.travis-ci.org/vptheron/spartan)
+[![codecov](https://codecov.io/gh/vptheron/spartan/branch/master/graph/badge.svg)](https://codecov.io/gh/vptheron/spartan)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 <img src="assets/logo.png" width="128" height="128" />

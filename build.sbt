@@ -10,9 +10,25 @@ startYear := Some(2017)
 
 licenses := Seq("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/vptheron/spartan"),
+    "scm:git@github.com:vptheron/spartan.git"
+  )
+)
+
 organization := "me.vptheron"
 organizationName := "vptheron.me"
 organizationHomepage := Some(url("http://vptheron.me"))
+
+developers := List(
+  Developer(
+    id    = "vptheron",
+    name  = "Vincent Theron",
+    email = "vptheron@gmail.com",
+    url   = url("http://vptheron.me")
+  )
+)
 
 scalaVersion := "2.12.2"
 
@@ -46,3 +62,33 @@ coverageFailOnMinimum := true
 autoAPIMappings := true
 
 addCommandAlias("testAll", ";clean; coverage; test; coverageReport; coverageOff")
+
+// Add sonatype repository settings
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
+
+pomIncludeRepository := { _ => false }
+
+publishMavenStyle := true
+
+// Configure Release plugin
+import ReleaseTransformations._
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  ReleaseStep(action = Command.process("publishSigned", _)),
+  setNextVersion,
+  commitNextVersion,
+  ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
+  pushChanges
+)
